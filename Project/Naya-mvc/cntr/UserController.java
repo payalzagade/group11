@@ -11,7 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-
+import Bean.Donor_Request;
 import dao.UserDao;
 import dto.User;
 
@@ -42,34 +42,31 @@ public class UserController {
 		public String login(ModelMap model)
 		{
 			model.put("user", new User());
+			model.put("donor", new Donor_Request());
 			return "login";
 		}
 		
 	
 	
 	@RequestMapping(value="/login1.htm")
-	public String login(User user,ModelMap model)
+	public String login(User user,ModelMap model,Donor_Request donor)
 	{
 		List<User>list=userDao.login(user);
 		
 		if(list.isEmpty())
 		{
 			model.put("user", new User());
+			model.put("donor", new Donor_Request());
 			return "login";
 		}
 		else
 		{
-			model.put("role", list.get(0).getUserRole());
-			if(list.get(0).getUserRole().equals("admin"))
-				return "admin";
-			
-			else {
-				if(list.get(0).getUserRole().equals("operator"))
-					return "operator";
-			}
-			
+			model.put("donor", new Donor_Request());
+					return "Donor";
 		}
-		return "index";
+			
+		
+		
 	}
 	
 	@RequestMapping(value="/user_list.htm")
